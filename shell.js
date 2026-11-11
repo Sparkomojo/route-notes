@@ -3,7 +3,7 @@
    photo resizing, messages, and a settings page for the what3words key. The notes page itself is routenotes.js –
    the same file the Tree Survey app uses, so the two stay in step. Nothing is sent anywhere: notes and photos stay on
    the phone until you share the PDF. */
-const RN_APP_VERSION = "1.0";
+const RN_APP_VERSION = "1.1";
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const today = () => new Date().toISOString().slice(0, 10);

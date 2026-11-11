@@ -1,13 +1,13 @@
 // Route Notes – © 2026 Mark Johnson. All rights reserved.
 // Offline cache: the app works with no signal once it has been opened once. Bump VERSION whenever any file changes.
-const VERSION = "route-notes-v1.0";
+const VERSION = "route-notes-v1.1";
 const FILES = ["./", "index.html", "app.css", "osgb.js", "shell.js", "routenotes.js", "start.js", "manifest.webmanifest", "lib/jspdf.umd.min.js",
   "icons/icon-192.png", "icons/icon-512.png", "icons/maskable-512.png", "icons/apple-touch-icon.png", "icons/favicon-32.png"];
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(VERSION).then(c => c.addAll(FILES.map(f => new Request(f, { cache: "reload" })))).then(() => self.skipWaiting()));
 });
 self.addEventListener("activate", e => {
-  e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k !== VERSION).map(k => caches.delete(k)))).then(() => self.clients.claim()));
+  e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k.startsWith("route-notes-") && k !== VERSION).map(k => caches.delete(k)))).then(() => self.clients.claim()));
 });
 // Network first (so updates arrive when there is signal), the offline copy otherwise.
 self.addEventListener("fetch", e => {
